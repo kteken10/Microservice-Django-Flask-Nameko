@@ -11,6 +11,3 @@ RUN pip install --no-cache-dir nameko nameko-sqlalchemy psycopg2-binary
 # Exposition du port 8000
 EXPOSE 8001
 
-# Commande pour lancer le service
-CMD ["nameko", "run", "--config", "config.yaml", "user_service.service:UserService"]
-CMD python client.py
