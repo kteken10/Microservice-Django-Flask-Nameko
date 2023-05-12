@@ -1,0 +1,15 @@
+AMQP_URI: 'amqp://guest:guest@localhost'
+DB_URIS:
+  default: 'postgresql://postgres:kevin@localhost/microservice'
+DB_URIS:
+  user_service:Base: postgresql://postgres:kevin@localhost:5432/microservice 
+# DB_URIS:
+#   product_service:Base: postgresql://postgres:kevin@localhost:5432/microservice    
+# DATABASE_URI: 'postgresql://postgres:kevin@localhost/microservice' 
+# AMQP_URI: 'amqp://guest:guest@localhost'
+# DATABASE_URL: 'postgresql://postgres:kevin@localhost/microservice'
+# user:
+#   DATABASE_URL: ${DATABASE_URL}
+
+# product:
+#   DATABASE_URL: ${DATABASE_URL}

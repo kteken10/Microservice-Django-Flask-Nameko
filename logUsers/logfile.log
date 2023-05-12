@@ -1,0 +1,6 @@
+2023-05-08 09:58:09,914 - logger - INFO - Received request: create_user DIssang tenkam Francis Kevin
+2023-05-08 09:58:10,037 - logger - INFO - User DIssang tenkam Francis Kevin created with id 10
+2023-05-08 09:58:10,175 - logger - INFO - Received request: get_user 10
+2023-05-08 09:58:10,180 - logger - INFO - User with id 10 found: DIssang tenkam Francis Kevin
+2023-05-08 09:58:10,384 - logger - INFO - Received request: update_user Janet
+2023-05-08 09:58:10,422 - logger - INFO - User update sucessfuly with infos Janet Janet@yzhoo.com 
