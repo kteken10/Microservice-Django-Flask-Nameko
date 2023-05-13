@@ -60,6 +60,14 @@ class UserService:
         self.db.commit()
 
         return {'id': user.id, 'name': user.name, 'email': user.email}
+    @rpc
+    def delete_user(self, user_id):
+        user = self.db.query(User).get(user_id)
+        if user is None:
+            return {"error": "User not found"}
+        self.db.delete(user)
+        self.db.commit()
+        return {"message": "User deleted successfully"}
     
 
     @http("GET", "/users")

@@ -42,6 +42,14 @@ def update_user(user_id):
         return jsonify(updated_user), 404
 
     return jsonify(updated_user), 200
+@app.route('/users/<int:user_id>', methods=['DELETE'])
+
+def delete_user(user_id):
+   with rpc_context() as rpc:
+        result = rpc.user_service.delete_user(user_id)
+        if 'error' in result:
+            return jsonify(result), 404
+        return jsonify(result), 200
    
 if __name__ == '__main__':
     app.run(debug=True)
