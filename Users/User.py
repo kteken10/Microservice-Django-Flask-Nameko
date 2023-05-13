@@ -22,7 +22,7 @@ class UserService:
     db = DatabaseSession(Bd)
 
     # ...
-
+##ALL THE METHOD RPC OFF THE USER_SERVICE
     @rpc
     def get_all_users(self):
         users = self.db.query(User).all()
@@ -68,7 +68,18 @@ class UserService:
         self.db.delete(user)
         self.db.commit()
         return {"message": "User deleted successfully"}
-    
+    @rpc
+    def get_user_by_id(self, user_id):
+        user = self.db.query(User).get(user_id)
+        if user is None:
+            return {"error": "User not found"}
+        return {
+            "id": user.id,
+            "name": user.name,
+            "email": user.email
+        }
+     
+##API CAN BE EXPOSE DIRECTLY WITH NAMEKO     
 
     @http("GET", "/users")
     def http_get_all_users(self, request):
@@ -105,3 +116,7 @@ class UserService:
             return jsonify(updated_user), 404
 
         return jsonify(updated_user), 200
+    @http("DELETE", "/users/<int:user_id>")
+    def delete_user(self, request, user_id):
+        result = self.user_rpc.delete_user(user_id)
+        return result
