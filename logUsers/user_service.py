@@ -6,7 +6,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 
-
 Bd = declarative_base()
 
 
@@ -21,7 +20,7 @@ class User(Bd):
 
 class UserService:
     name = "user_service"
-   # Créer un logger nommé "logger"
+   # Créer un logger nommé "my_logger"
     logger = logging.getLogger("logger")
     logger.setLevel(logging.DEBUG)
 
@@ -40,7 +39,6 @@ class UserService:
     db = DatabaseSession(Bd)
 
     def __init__(self):
-       
         engine = create_engine(self.db_uri)
         Bd.metadata.create_all(engine)
         self.db.bind = engine

@@ -28,6 +28,9 @@ Pour exécuter l'application, vous devez suivre les étapes suivantes:
 
 
 4. Lancez les services à l'aide de la commande suivante:
+-python main pour le service Flask
+-nameko run user_service pour le service Nameko
+-python manage.py runserver 0.0.0.0:8000
 
 
 5. Accédez à l'application principale dans votre navigateur Web en entrant l'URL suivante:
