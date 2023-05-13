@@ -14,6 +14,18 @@ def get_all_users():
     with rpc_context() as rpc:
         user_list = rpc.user_service.get_all_users()
         return jsonify(user_list)
+    
+@app.route('/users/<int:user_id>')
+
+def get_user_by_id(user_id):
+    with rpc_context() as rpc:
+        user = rpc.user_service.get_user_by_id(user_id=user_id)
+
+        if 'error' in user:
+            return jsonify(user), 404
+
+        return jsonify(user), 200
+
 @app.route('/users', methods=['POST'])
 def create_user():
     with rpc_context() as rpc:
@@ -27,6 +39,7 @@ def create_user():
 
         user = rpc.user_service.create_user(name, email, password)
         return jsonify(user), 201
+    
 
 @app.route('/users/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
@@ -42,14 +55,7 @@ def update_user(user_id):
         return jsonify(updated_user), 404
 
     return jsonify(updated_user), 200
-@app.route('/users/<int:user_id>', methods=['DELETE'])
 
-def delete_user(user_id):
-   with rpc_context() as rpc:
-        result = rpc.user_service.delete_user(user_id)
-        if 'error' in result:
-            return jsonify(result), 404
-        return jsonify(result), 200
    
 if __name__ == '__main__':
     app.run(debug=True)

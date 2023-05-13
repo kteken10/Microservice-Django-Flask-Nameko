@@ -99,7 +99,10 @@ class UserService:
         user = self.create_user(name, email, password)
         return jsonify(user), 201 
     
-
+    @http('GET', '/users/<int:user_id>')
+    def http_get_user_by_id(self, request, user_id):
+        user = self.get_user_by_id(user_id)
+        return jsonify(user)
     @http('PUT', '/users/<int:user_id>')
     def http_update_user(self, request, user_id):
         data = request.get_json()
@@ -120,3 +123,4 @@ class UserService:
     def delete_user(self, request, user_id):
         result = self.user_rpc.delete_user(user_id)
         return result
+    
