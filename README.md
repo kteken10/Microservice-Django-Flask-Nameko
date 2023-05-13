@@ -13,7 +13,10 @@ Chacun de ces services est encapsulé dans un conteneur Docker pour une gestion 
 ## Prérequis
 
 Avant d'exécuter l'application, vous devez vous assurer que Docker est installé sur votre machine. Si vous n'avez pas encore installé Docker, veuillez consulter la documentation officielle pour votre système d'exploitation pour obtenir des instructions d'installation.
-- installer postgres pour l'utilisation des services 
+- installer postgres pour l'utilisation des services:
+
+les paramètre de configuration de la base de donnée sont dans le fichier config.yaml
+
 - installer ou utiliser une image de RabbitMq via docker
 
 ## Exécution de l'application
@@ -21,6 +24,8 @@ Avant d'exécuter l'application, vous devez vous assurer que Docker est install�
 Pour exécuter l'application, vous devez suivre les étapes suivantes:
 
 1. Clonez le repository git en utilisant la commande suivante:
+
+ 
 
 
 
