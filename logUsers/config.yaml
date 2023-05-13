@@ -1,4 +1,4 @@
-AMQP_URI: 'amqp://guest:guest@localhost'
+AMQP_URI: 'amqp://guest:guest@localhost:5672/'
 DB_URIS:
   default: 'postgresql://postgres:kevin@localhost/microservice'
 DB_URIS:
@@ -8,7 +8,6 @@ DB_URIS:
 # DATABASE_URI: 'postgresql://postgres:kevin@localhost/microservice' 
 # AMQP_URI: 'amqp://guest:guest@localhost'
 # DATABASE_URL: 'postgresql://postgres:kevin@localhost/microservice'
-
 # user:
 #   DATABASE_URL: ${DATABASE_URL}
 

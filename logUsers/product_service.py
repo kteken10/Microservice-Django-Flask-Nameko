@@ -4,7 +4,11 @@ from nameko_sqlalchemy import DatabaseSession
 from sqlalchemy import Column, Integer, String, Float, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from nameko.dependency_providers import Config
-
+ 
+from nameko.rpc import rpc, RpcProxy
+from nameko.web.handlers import http
+from werkzeug.wrappers import Request, Response
+from jsonrpc import JSONRPCResponseManager, dispatcher 
 Base = declarative_base()
 
 class Product(Base):

@@ -1,28 +1,42 @@
-from nameko.rpc import rpc
+from flask import Flask, jsonify, request
 from nameko.standalone.rpc import ClusterRpcProxy
 
-config = {
-    'AMQP_URI': 'amqp://guest:guest@localhost',
-}
+app = Flask(__name__)
 
-with ClusterRpcProxy(config) as rpc:
-    # Appel à la méthode "hello" du service
-    result = rpc.user_service.hello("John")
-
-    # Création d'un utilisateur
+@app.route('/users')
+def get_all_users():
+    with ClusterRpcProxy({'AMQP_URI': "pyamqp://guest:guest@localhost"}) as rpc:
+        user_list = rpc.user_service.get_all_users()
+        return jsonify(user_list)
     
-    name=input("name of your user :")
-    email=input("email of your user :")
-    password=input("password of your user :")
+@app.route('/users', methods=['POST'])
+def create_user():
+    with ClusterRpcProxy({'AMQP_URI': "pyamqp://guest:guest@localhost"}) as rpc:
+        data = request.get_json()
+        name = data.get('name')
+        email = data.get('email')
+        password = data.get('password')
 
-    user_id = rpc.user_service.create_user(name,email,password)
-   
-    # Récupération d'un utilisateur
-    user_name = rpc.user_service.get_user(user_id)
-   
+        if not all([name, email, password]):
+            return jsonify({'error': 'missing required fields'}), 400
 
-    # Mise à jour du nom d'un utilisateur
-    rpc.user_service.update_user(user_id, "Janet","Janet@yzhoo.com","123impose")
-    response=input(" la suppression de l'utilisateur ? %s "%(user_id))
-    if response=="Y" or response=="O":
-        rpc.user_service.delete_user(user_id)
+        user = rpc.user_service.create_user(name, email, password)
+        return jsonify(user), 201
+
+
+@app.route('/users/<int:user_id>', methods=['PUT'])
+def update_user(user_id):
+    data = request.get_json()
+    name = data.get('name')
+    email = data.get('email')
+    password = data.get('password')
+
+    with ClusterRpcProxy({'AMQP_URI': "pyamqp://guest:guest@localhost"}) as rpc:
+        updated_user = rpc.user_service.update_user(user_id=user_id, name=name, email=email, password=password)
+
+    if 'error' in updated_user:
+        return jsonify(updated_user), 404
+
+    return jsonify(updated_user), 200
+if __name__ == '__main__':
+    app.run(debug=True)
